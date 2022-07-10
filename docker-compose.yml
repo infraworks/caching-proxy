@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  squid-deb-proxy:
+    build: .
+    container_name: squid-deb-proxy
+    ports:
+      - 8000:8000
+      # - 5353:5353
+    volumes:
+      - ./cachedir:/var/cache/squid-deb-proxy
+    restart: always
