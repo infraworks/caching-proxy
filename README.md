@@ -3,7 +3,7 @@
 ## Run in background
 
 ```Bash
-docker run -d  -p 8000:8000/tcp -v ./cachedir:/var/cache/squid-deb-proxy jxtopher/caching-proxy:latest --name caching-proxy
+docker run -d  -p 8000:8000/tcp -v ./cachedir:/var/cache/squid-deb-proxy --name caching-proxy jxtopher/caching-proxy:latest 
 ```
 
 ## Add proxy
