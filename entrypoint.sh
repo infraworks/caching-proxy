@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Necessary because squid forks itself to an unprivileged process.
-chown -R proxy.proxy /var/cache/squid-deb-proxy
-chown proxy.proxy /dev/stdout
+chown -R proxy:proxy /var/cache/squid-deb-proxy
+chown proxy:proxy /dev/stdout
 rm -f /var/run/squid-deb-proxy.pid
 
 set -e
@@ -18,13 +18,13 @@ then
 	if [ ! "$(ls -A $DIR)" ]; then
         # if directory empty
         echo "[+] Cache directory initialization"
-        /usr/sbin/squid3 -z -N -f /etc/squid-deb-proxy/squid-deb-proxy.conf
+        /usr/sbin/squid -z -N -f /etc/squid-deb-proxy/squid-deb-proxy.conf
     fi
 else
 	echo "[-] Directory $DIR not found"
 fi
 
 # Run squid3
-/usr/sbin/squid3 -N -f /etc/squid-deb-proxy/squid-deb-proxy.conf
+/usr/sbin/squid -N -f /etc/squid-deb-proxy/squid-deb-proxy.conf
 
 exec "$@"
