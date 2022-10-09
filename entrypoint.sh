@@ -1,30 +1,25 @@
-#!/bin/sh
+#!/bin/bash
 
-# Necessary because squid forks itself to an unprivileged process.
-chown -R proxy:proxy /var/cache/squid-deb-proxy
-chown proxy:proxy /dev/stdout
-rm -f /var/run/squid-deb-proxy.pid
+chown -R squid:squid /var/cache/squid
+chown squid:squid /dev/stdout
+rm -f /var/run/squid/squid.pid
 
 set -e
 
-# Start services
-service dbus start
-service avahi-daemon start
-
 # Cache initialization
-DIR="/var/cache/squid-deb-proxy"
+DIR="/var/cache/squid"
 if [ -d "$DIR" ]
 then
 	if [ ! "$(ls -A $DIR)" ]; then
         # if directory empty
         echo "[+] Cache directory initialization"
-        /usr/sbin/squid -z -N -f /etc/squid-deb-proxy/squid-deb-proxy.conf
+        /usr/sbin/squid -z -N -f /etc/squid/squid.conf
     fi
 else
 	echo "[-] Directory $DIR not found"
 fi
 
-# Run squid3
-/usr/sbin/squid -N -f /etc/squid-deb-proxy/squid-deb-proxy.conf
+# Run squid
+/usr/sbin/squid -N -f /etc/squid/squid.conf
 
 exec "$@"
