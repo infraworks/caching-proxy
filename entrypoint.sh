@@ -28,3 +28,4 @@ fi
 /usr/sbin/squid -N -f /etc/squid-deb-proxy/squid-deb-proxy.conf
 
 exec "$@"
+
